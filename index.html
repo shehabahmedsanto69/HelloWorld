@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hello World — My First Page</title>
+  <meta name="description" content="A simple single-file Hello World page with small interaction and accessible markup." />
+
+  <style>
+    /* Reset-ish */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: linear-gradient(180deg,#08122a 0%, #0f2740 60%, #12324a 100%);
+      color: #e6f7ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      line-height:1.4;
+    }
+
+    /* Card */
+    .card{
+      width:100%;
+      max-width:760px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:14px;
+      padding:32px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+    }
+
+    header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background: linear-gradient(135deg,#2bd4ff,#6b9cff);
+      color:#042032;
+      font-weight:700;
+      font-size:20px;
+      box-shadow: 0 6px 16px rgba(43,212,255,0.08);
+    }
+    h1{
+      margin:0;
+      font-size:1.6rem;
+      letter-spacing: -0.02em;
+    }
+    p.lead{
+      margin:8px 0 20px 0;
+      color: rgba(230,247,255,0.9);
+    }
+
+    .hello{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .bubble{
+      background: rgba(0,0,0,0.18);
+      padding:18px 22px;
+      border-radius:12px;
+      min-width:220px;
+      text-align:center;
+      font-size:1.4rem;
+      font-weight:600;
+      color:#eaffff;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .controls{
+      margin-left:auto;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    button{
+      appearance:none;
+      border:0;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.95rem;
+      transition:transform .12s ease, box-shadow .12s ease;
+      background: linear-gradient(180deg,#00a7ff,#0072c6);
+      color:white;
+      box-shadow: 0 6px 18px rgba(0,114,198,0.18);
+    }
+    button:active{ transform: translateY(1px) }
+    button.ghost{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d9f3ff;
+      box-shadow:none;
+    }
+
+    label { font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; color:#cdeefc; }
+
+    footer{
+      margin-top:18px;
+      font-size:0.88rem;
+      color: rgba(230,247,255,0.75);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    code.snippet{
+      background: rgba(255,255,255,0.03);
+      padding:6px 8px;
+      border-radius:6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      font-size:0.85rem;
+      color:#c6f0ff;
+    }
+
+    @media (max-width:520px){
+      header{ gap:10px }
+      .logo{ width:48px; height:48px; font-size:18px }
+      h1{ font-size:1.25rem }
+      .bubble{ font-size:1.15rem; padding:14px 16px }
+      .controls{ width:100%; margin-top:12px; justify-content:flex-start }
+      footer{ font-size:0.78rem }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="pageTitle">
+    <header>
+      <div class="logo" aria-hidden="true">HW</div>
+      <div>
+        <h1 id="pageTitle">Hello World — My First Page</h1>
+        <p class="lead">A minimal single-file example that shows a greeting, small interaction, and accessible markup.</p>
+      </div>
+      <div class="controls" aria-hidden="false">
+        <label for="nameInput">Your name
+          <input id="nameInput" type="text" placeholder="Type your name" style="margin-left:8px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;">
+        </label>
+        <button id="sayBtn" aria-label="Say hello">Say Hello</button>
+      </div>
+    </header>
+
+    <section class="hello" aria-live="polite" aria-atomic="true">
+      <div class="bubble" id="greeting">Hello, World!</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-left:auto;min-width:220px;">
+        <button id="surpriseBtn" class="ghost" title="Change to a fun greeting">Surprise me</button>
+        <button id="copyBtn" class="ghost" title="Copy greeting to clipboard">Copy</button>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        Tip: try typing your name and press <span class="snippet">Say Hello</span>.
+      </div>
+      <div>
+        <small class="snippet" id="status">Ready</small>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Simple interactive behavior
+    (function () {
+      const greetingEl = document.getElementById('greeting');
+      const nameInput = document.getElementById('nameInput');
+      const sayBtn = document.getElementById('sayBtn');
+      const surpriseBtn = document.getElementById('surpriseBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const statusEl = document.getElementById('status');
+
+      const surpriseList = [
+        "Hello, Universe!",
+        "Howdy, Partner!",
+        "¡Hola, Mundo!",
+        "Bonjour, le monde!",
+        "Ciao, Mondo!",
+        "こんにちは、世界！",
+        "Namaste, World!",
+        "Ahoy, Earthling!"
+      ];
+
+      function setStatus(txt, short=false) {
+        statusEl.textContent = txt;
+        if (!short) {
+          setTimeout(()=> { statusEl.textContent = 'Ready' }, 1800);
+        }
+      }
+
+      function sayHello() {
+        const name = nameInput.value.trim();
+        const message = name ? `Hello, ${escapeHtml(name)}!` : "Hello, World!";
+        greetingEl.textContent = message;
+        setStatus('Greeting updated');
+        console.log('[hello] ', message);
+      }
+
+      function surprise() {
+        const pick = surpriseList[Math.floor(Math.random() * surpriseList.length)];
+        greetingEl.textContent = pick;
+        setStatus('Surprised you!');
+        console.log('[surprise] ', pick);
+      }
+
+      async function copyGreeting() {
+        const text = greetingEl.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          setStatus('Copied ✓');
+        } catch (e) {
+          // fallback
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); setStatus('Copied (fallback) ✓'); } catch(_) { setStatus('Copy failed', true); }
+          ta.remove();
+        }
+      }
+
+      // small helper to avoid inserting markup if user inputs HTML
+      function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, function (m) {
+          return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+        });
+      }
+
+      // Event listeners
+      sayBtn.addEventListener('click', sayHello);
+      surpriseBtn.addEventListener('click', surprise);
+      copyBtn.addEventListener('click', copyGreeting);
+
+      // Allow Enter key in input to trigger sayHello
+      nameInput.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') {
+          ev.preventDefault();
+          sayHello();
+          sayBtn.focus();
+        }
+      });
+
+      // Initialize accessible focus
+      sayBtn.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') sayHello(); });
+
+      // initial console message
+      console.log('Hello World page loaded — ready.');
+    })();
+  </script>
+</body>
+</html>
